@@ -1,0 +1,33 @@
+@use '2-tools/mixin-reset-elements' as *;
+@use '2-tools/media-queries' as *;
+@use '6-elements/progress-dots' as *;
+
+.multicard--carousel {
+    padding-inline: 0;
+}
+
+.multicard--carousel .multicard__card {
+    width: 100%;
+}
+
+// Grid type
+.multicard--grid .container {
+    display: flex;
+    gap: var(--space-fixed-2);
+    justify-content: center;
+}
+
+.multicard--column .multicard__card,
+.multicard--grid .multicard__card {
+    width: inherit;
+}
+
+.multicard--grid.multicard--small .container {
+    @media #{query('l', 'max')} {
+        flex-wrap: wrap;
+    }
+}
+
+.multicard--grid.multicard--big .container {
+    flex-wrap: wrap;
+}

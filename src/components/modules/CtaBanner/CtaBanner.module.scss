@@ -1,0 +1,23 @@
+@use '2-tools/units' as *;
+
+.ctaBanner {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding: var(--space-4) 0;
+}
+
+.ctaBanner--center {
+    text-align: center;
+}
+
+.ctaBanner__content {
+    max-width: rem(500);
+}
+
+.ctaBanner--center .ctaBanner__cta {
+    justify-content: center;
+}
+
+.ctaBanner--center .ctaBanner__content {
+    margin-inline: auto;
+}

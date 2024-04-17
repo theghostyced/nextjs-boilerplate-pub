@@ -1,0 +1,17 @@
+@use '2-tools/media-queries' as *;
+
+.post-list__item {
+    grid-column: 1 / -1;
+
+    @media #{query('s')} {
+        grid-column: auto / span 2;
+    }
+
+    @media #{query('m')} {
+        grid-column: auto / span 6;
+    }
+
+    @media #{query('l')} {
+        grid-column: auto / span 3;
+    }
+}

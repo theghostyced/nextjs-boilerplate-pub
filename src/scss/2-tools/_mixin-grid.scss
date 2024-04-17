@@ -1,0 +1,17 @@
+@mixin grid {
+    display: grid;
+    grid-column-gap: var(--space-gutter);
+    grid-row-gap: var(--space-gutter-v);
+    grid-template-columns: var(--grid);
+}
+
+
+@mixin fakeGridWidth($cols) {
+    width: calc($cols * var(--grid-col-width) + ($cols - 1) * var(--space-gutter));
+}
+
+@mixin fluidTypeGrid($cols) {
+    font-size: calc( (($cols / 2) * var(--grid-col-width) + (($cols / 2) - 1) * var(--space-gutter)) / 2.2);
+    line-height: 1;
+    width: calc($cols * var(--grid-col-width) + ($cols - 1) * var(--space-gutter));
+}

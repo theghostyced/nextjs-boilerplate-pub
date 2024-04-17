@@ -1,0 +1,114 @@
+@use '2-tools/colors' as *;
+@use '2-tools/media-queries' as *;
+
+.accordion__item {
+  border-left: 1px solid var(--color-divider);
+  padding-inline-start: var(--space-fixed-1);
+}
+
+// see https://css-tricks.com/how-to-animate-the-details-element/ for information on animations, if desired
+.accordion__item::marker {
+  display: none;
+}
+
+.accordion__item[open] {
+  border-color: color('white');
+}
+
+.accordion__item:not(:last-child) {
+  margin-block-end: var(--space-fixed-2);
+}
+
+.accordion__title {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: var(--space-fixed-1);
+  padding-block: var(--space-fixed-2);
+  transition: color var(--trs-time) var(--trs-tfunc);
+}
+
+.accordion__title::marker,
+.accordion__title::-webkit-details-marker {
+  display: none;
+}
+
+// Hide plus icon when opened
+.accordion__icon--open {
+  display: flex;
+}
+
+.accordion__item[open] .accordion__icon--open {
+  display: none;
+}
+
+.accordion__icon--close {
+  display: none;
+}
+
+// Show minus icon when opened
+.accordion__item[open] .accordion__icon--close {
+  display: flex;
+}
+
+.accordion__text {
+  padding-bottom: var(--space-fixed-2);
+  padding-inline-start: var(--space-fixed-4);
+}
+
+.accordion__text .text > :first-child {
+  margin: 0;
+}
+
+.accordion__text .text .btn {
+  margin-top: var(--space-gutter-v, 1.5em);
+}
+
+.accordion__text__frame {
+  grid-column: auto / span 2;
+  margin-inline-end: var(--space-fixed-3);
+
+  @media #{query('m', 'max')} {
+    order: 2;
+  }
+}
+
+.accordion__media__text {
+  grid-column: auto / span 5;
+  @media #{query('m', 'max')} {
+    order: 1;
+  }
+}
+
+.accordion__text__text {
+  grid-column: auto / span 7;
+}
+
+.accordion__text__frame,
+.accordion__text__text {
+  @media #{query('m', 'max')} {
+    grid-column: 1 / -1;
+  }
+}
+
+// ---------------------------
+//
+// FOCUS/ACTIVE STYLES
+//
+// ----------------------------
+.accordion__title:focus-visible,
+.accordion__title:active {
+  color: var(--color-text-soft);
+  outline: none;
+}
+
+// ---------------------------
+//
+// HOVER STYLES
+//
+// ----------------------------
+@media (hover: hover) {
+  .accordion__title:hover {
+    color: var(--color-text-soft);
+  }
+}

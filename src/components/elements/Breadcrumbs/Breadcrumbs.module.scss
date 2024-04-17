@@ -1,0 +1,28 @@
+@use '2-tools/mixin-fonts' as *;
+
+.breadcrumbs {
+    padding: var(--space-fixed-1) 0;
+}
+
+.breadcrumbs__list {
+    display: flex;
+}
+
+.breadcrumbs__link {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.breadcrumbs__link:hover,
+.breadcrumbs__link:focus-within,
+.breadcrumbs__link:active {
+    color: var(--color-text-link-hover);
+}
+
+
+
+.breadcrumbs__text {
+    @include font-family('sans-bold');
+}
+
+

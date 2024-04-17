@@ -1,0 +1,53 @@
+---
+name: Lint
+
+#
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
+
+on:
+  push
+
+
+jobs:
+  lint:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore yarn cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json', '**/yarn.lock', '.yarnrc.yml') }}
+
+      - name: Install Dependencies
+        run: |
+          yarn install --immutable
+
+      - name: Lint JS
+        run: |
+          mkdir -p ./reports
+          yarn lint --quiet --format junit -o ./reports/eslint.xml
+
+      - name: Publish JS Lint Report
+        uses: mikepenz/action-junit-report@v3.7.2
+        if: always()
+        with:
+          check_name: JS Lint Report
+          report_paths: ./reports/eslint.xml

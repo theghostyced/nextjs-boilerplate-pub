@@ -1,0 +1,27 @@
+@use '2-tools/media-queries' as *;
+
+.text-module__header,
+.text-module__text {
+    grid-column: 1 / -1;
+}
+
+
+.text-module__header {
+    @media #{query('nav')} {
+        grid-column: auto / span 6;
+    }
+}
+
+.text-module__text {
+    @media #{query('nav')} {
+        grid-column: 3 / span 8;
+    }
+}
+
+.text-module--two-column .text-module__text {
+    column-count: 2;
+}
+
+.text-module__title + .text-module__text {
+    margin-top: var(--space-gutter-v);
+}

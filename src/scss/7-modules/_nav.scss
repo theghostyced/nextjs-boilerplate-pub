@@ -1,0 +1,539 @@
+@use 'sass:map';
+
+@use '1-settings/variables' as *;
+@use '2-tools/units' as *;
+@use '2-tools/media-queries' as *;
+@use '2-tools/z-index' as *;
+@use '2-tools/colors' as *;
+@use '2-tools/mixin-hide' as *;
+
+// --------------------------------------------------------
+// Vars
+// --------------------------------------------------------
+:root {
+  --nav-height: #{rem(52)};
+  --logo-width: #{rem(100)};
+  // From _dimensions.scss
+  // This is used in _src/static/js/lib/nav.js
+  --nav-break: #{map.get($breakpoints, 'nav')};
+  --max-nav-media-query: (max-width: #{map.get($breakpoints, 'nav')});
+  --min-nav-media-query: (min-width: #{map.get($breakpoints, 'nav')});
+
+  @media #{query('m')} {
+    --nav-height: #{rem(64)};
+  }
+}
+
+// ----------------------
+// Skipnav button styles
+// -----------------------
+.skipnav {
+  bottom: 100%;
+  left: var(--space-gutter);
+  opacity: 0;
+  padding: 0.35em 1em;
+  position: fixed;
+  text-decoration: none;
+  transform: translateY(0);
+  width: auto;
+  z-index: zindex('header', 'high');
+}
+
+.skipnav:focus-visible {
+  opacity: 1;
+  outline: none;
+  transform: translateY(100%);
+}
+
+@media (hover: hover) {
+  .skipnav:hover {
+    opacity: 1;
+    outline: none;
+    transform: translateY(100%);
+  }
+}
+
+// ----------------------
+// Header Layout
+// -----------------------
+.nav {
+  background-color: var(--color-bg);
+  height: var(--nav-height);
+  left: 0;
+  padding-inline: var(--space-fixed-2);
+  position: sticky;
+  top: 0;
+  transition: opacity 0.19s ease-in 0.35s;
+  width: 100%;
+  z-index: zindex('header', 'high');
+}
+
+.nav__container {
+  align-items: stretch;
+  display: flex;
+  gap: var(--space-gutter);
+  height: var(--nav-height);
+  justify-content: space-between;
+
+  @media #{query('nav')} {
+    display: grid;
+    gap: 0;
+    grid-template-columns: min-content minmax(0, 1fr) min-content;
+  }
+}
+
+// --------------------------------------------------------
+// Branding
+// --------------------------------------------------------
+.nav__branding {
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+  text-decoration: none;
+  transition: opacity var(--trs-time) var(--trs-tfunc);
+  z-index: zindex('header');
+}
+
+.nav__branding__wordmark {
+  align-items: center;
+  color: var(--color-text);
+  display: flex;
+  gap: 1ch;
+  position: relative;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.nav__branding svg,
+.nav__branding img {
+  display: block;
+  max-width: var(--logo-width);
+  transition:
+    color var(--trs-time) var(--trs-tfunc),
+    opacity var(--trs-time) var(--trs-tfunc);
+  width: var(--logo-width);
+}
+
+.nav__branding svg {
+  height: 100%;
+  z-index: 3;
+}
+
+.nav__branding__text {
+  color: var(--color-text);
+  font-size: rem(20);
+  mix-blend-mode: difference;
+  position: relative;
+  z-index: 3;
+}
+
+.nav__branding:visited,
+.nav__branding:-webkit-any-link {
+  color: var(--color-text);
+}
+
+.nav__branding:focus-visible,
+.nav__branding:active {
+  color: var(--color-accent-bg);
+  fill: var(--color-accent-bg);
+  opacity: 0.6;
+  outline: none;
+}
+
+@media (hover: hover) {
+  .nav__branding:hover {
+    color: var(--color-accent-bg);
+    fill: var(--color-accent-bg);
+    opacity: 0.6;
+  }
+}
+
+// --------------------------------------------------------
+// Nav Container Styles
+// --------------------------------------------------------
+.nav__menu {
+  @media #{query('nav', 'max')} {
+    background-color: var(--color-bg);
+    bottom: 0; // for iOS
+    display: none;
+    height: calc(var(--vp-h) - var(--nav-height));
+    left: 0;
+    min-height: calc(var(--vp-h) - var(--nav-height));
+    opacity: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: var(--space-3);
+    position: fixed;
+    top: var(--nav-height);
+    transition: opacity var(--trs-time) ease;
+    width: 100%;
+    z-index: zindex('header');
+  }
+
+  @media #{query('nav')} {
+    align-items: stretch;
+    column-gap: var(--space-fixed-2);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+}
+
+@media #{query('nav', 'max')} {
+  // No js open
+  .nav-menu-checkbox:checked ~ .nav .nav__menu {
+    display: block;
+    opacity: 1;
+  }
+}
+
+// --------------------------------------------------------
+// Nav List Styles
+// --------------------------------------------------------
+.nav__list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-3);
+
+  @media #{query('nav')} {
+    align-items: center;
+    flex-direction: row;
+    gap: var(--space-fixed-2);
+    justify-content: flex-end;
+    margin-bottom: 0;
+    padding: 0;
+    width: auto;
+  }
+}
+
+.nav__item {
+  flex-shrink: 0;
+
+  @media #{query('nav', 'max')} {
+    padding-block: var(--space-fixed-2);
+  }
+
+  @media #{query('nav')} {
+    display: flex;
+    height: 100%;
+  }
+}
+
+.nav__item--cta {
+  @media #{query('nav', 'max')} {
+    padding: 0;
+  }
+
+  @media #{query('nav')} {
+    align-items: center;
+  }
+}
+
+.nav__item--cta .btn {
+  @media #{query('nav', 'max')} {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+// ------------------------------
+// Nav Button Styles
+// ------------------------------
+.nav__item__button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--color-text);
+  display: flex;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+  transition: color var(--trs-time) var(--trs-tfunc);
+
+  @media #{query('nav', 'max')} {
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    width: 100%;
+  }
+
+  @media #{query('nav')} {
+    align-items: center;
+  }
+}
+
+.nav__item__button::before {
+  content: none;
+}
+
+// .nav__item__button[aria-expanded='true'],
+// .nav__item__button:active {
+//     color: var(--color-text-link-hover);
+// }
+.nav__item__button:focus-visible {
+  background-color: var(--color-bg-btn);
+  color: var(--color-text-btn);
+  outline: 0;
+}
+
+.nav__list--primary {
+  flex: 1;
+}
+
+.nav__subnav-icon {
+  height: auto;
+  // If you want the icon to overlap the padding
+  // position: absolute;
+  // right: calc((var(--space-3) / 2) - #{rem(4)}); // center of icon on center of padding
+  margin-left: var(--space-0);
+  pointer-events: none; // prevent subnav flickering if hovered over
+  transition: transform var(--trs-time) var(--trs-tfunc);
+}
+
+.nav__item__button[aria-expanded='true'] .nav__subnav-icon {
+  transform: rotate(180deg);
+}
+
+@media (hover: hover) {
+  .nav__item__button:hover {
+    color: var(--color-text-link-hover);
+  }
+
+  .nav__item:hover .nav__subnav-icon {
+    transform: rotate(180deg);
+  }
+}
+
+// --------------------------------------------------------
+// Secondary Nav
+// --------------------------------------------------------
+.nav__list--secondary {
+  @media #{query('nav', 'max')} {
+    gap: var(--space-fixed-2);
+  }
+
+  @media #{query('nav')} {
+    gap: var(--space-fixed-2);
+  }
+}
+
+.nav__list--secondary .nav__item__button {
+  padding: var(--space-0) var(--space-outer);
+
+  @media #{query('nav')} {
+    padding: var(--space-2);
+  }
+}
+
+// increase opened subnav by soft color for other items - mobile
+.nav__list:has(.is-subnav-open) .nav__item:not(.is-subnav-open) .nav__item__button {
+  @media #{query('nav', 'max')} {
+    color: var(--color-text-soft);
+  }
+}
+
+// ---------------------------------------
+// MOBILE AND NO JS MENU BUTTON STYLES
+// ---------------------------------------
+// Prevents HTML document scroll if
+// menu is open and tall enough to be scrollable
+.nav-menu-open {
+  overflow: hidden;
+}
+
+// Open nav on mobile
+.nav-menu-checkbox {
+  @include is-visually-hidden;
+}
+
+.nav__menu-mobile-buttons {
+  align-items: center;
+  display: flex;
+  gap: 0;
+  @include is-hidden('nav', 'min');
+}
+
+.nav__menu-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--color-dark);
+  cursor: pointer;
+  display: block;
+  height: rem(40);
+  padding: 0;
+  width: rem(40);
+}
+
+.nav__menu-btn::before {
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-text);
+  content: '';
+  display: inline-block;
+  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none"><path fill="currentColor" d="M28.333 14.583H11.667v-2.5h16.666v2.5ZM28.333 21.25H11.667v-2.5h16.666v2.5ZM11.666 27.917h16.667v-2.5H11.667v2.5Z"/></svg>')
+    no-repeat 50% 50%;
+  mask-size: cover;
+  width: rem(40);
+}
+
+.nav-menu-checkbox:checked ~ .nav .nav__menu-btn::before {
+  content: '';
+  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none"><path fill="currentColor" d="m26.482 15.286-1.768-1.768L20 18.232l-4.714-4.714-1.768 1.768L18.232 20l-4.714 4.714 1.768 1.768L20 21.768l4.714 4.714 1.768-1.768L21.768 20l4.714-4.714Z"/></svg>')
+    no-repeat 50% 50%;
+}
+
+// Mobile checkbox nav (no js)
+// Mobile menu button (js enhanced)
+.nav-menu-checkbox,
+.nav__menu-btn {
+  @media #{query('nav')} {
+    display: none;
+  }
+}
+
+.nav__menu-btn:active {
+  color: var(--color-dark);
+}
+
+@media (hover: hover) {
+  .nav__menu-btn:hover {
+    color: var(--color-dark);
+  }
+}
+
+// --------------------------------------------------------
+// Subnav
+// --------------------------------------------------------
+.nav__subnav {
+  background-color: var(--color-bg);
+  position: relative;
+  z-index: 5;
+
+  @media #{query('nav', 'max')} {
+    display: none;
+  }
+
+  @media #{query('nav')} {
+    --color-bg: var(--color-light);
+    opacity: 0;
+    padding: var(--space-2);
+    position: absolute;
+    top: var(--nav-height);
+    transition:
+      opacity 0.2s,
+      visibility 0.2s;
+    visibility: hidden;
+    width: auto;
+  }
+}
+
+.nav-feature__card {
+  @media #{query('m', 'max')} {
+    flex-direction: column;
+    width: auto;
+  }
+
+  @media #{query('l', 'max')} {
+    margin-block-start: var(--space-fixed-2);
+  }
+}
+
+.nav__subnav--feature {
+  left: 0;
+  width: 100%;
+}
+
+.nav__item.is-subnav-open .nav__subnav {
+  @media #{query('nav')} {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media #{query('nav', 'max')} {
+    display: block;
+    padding-block-start: var(--space-fixed-2);
+  }
+}
+
+.nav__subnav[hidden] {
+  opacity: 0;
+  overflow: hidden;
+
+  @media #{query('nav', 'max')} {
+    height: 0;
+  }
+
+  @media #{query('nav')} {
+    transition:
+      opacity 0.2s linear,
+      visibility 0.2s linear;
+  }
+}
+
+.nav__subnav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fixed-1);
+  width: auto;
+}
+
+.nav__subnav__link {
+  color: var(--color-text);
+  display: inline-block;
+  padding: var(--space-00) 0;
+  text-decoration: none;
+}
+
+.nav__subnav__link:focus-visible {
+  background-color: var(--color-bg-btn);
+  color: var(--color-text-btn);
+  outline: 0;
+}
+
+.nav__subnav__eyebrow {
+  color: color('grey', '500');
+  margin-bottom: var(--space-00);
+}
+
+.nav__subnav__sublist {
+  margin-block-start: var(--space-fixed-2);
+}
+
+.nav__subnav__list + .nav__subnav__eyebrow {
+  margin-top: var(--space-2);
+}
+
+.nav__subnav__layout {
+  @media #{query('nav')} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--maw);
+  }
+}
+
+@media (hover: hover) {
+  .nav__item:hover .nav__subnav {
+    @media #{query('nav')} {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  // no js show subnav
+  .no-js .nav__item:hover .nav__subnav {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+
+    @media #{query('nav', 'max')} {
+      padding: var(--space-outer);
+    }
+  }
+
+  .nav__subnav__link:hover {
+    color: var(--color-text-link-hover);
+    outline: 0;
+  }
+}

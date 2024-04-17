@@ -1,0 +1,86 @@
+@use '2-tools/units' as *;
+@use '2-tools/media-queries' as *;
+
+
+:root {
+    //
+    // spacing properties
+    //
+    --space-fixed-1: #{rem(8)};
+    --space-fixed-2: #{rem(16)};
+    --space-fixed-3: #{rem(24)};
+    --space-fixed-4: #{rem(32)};
+    --space-fixed-5: #{rem(40)};
+
+    --space-6: #{rem(80)};
+    --space-5: #{rem(64)};
+    --space-4: #{rem(40)};
+    --space-3: #{rem(24)};
+    --space-2: #{rem(16)};
+    --space-1: #{rem(8)};
+
+    @media #{query('m')} {
+        --space-6: #{rem(96)};
+        --space-5: #{rem(72)};
+        --space-4: #{rem(48)};
+        --space-3: #{rem(32)};
+        --space-2: #{rem(24)};
+        --space-1: #{rem(16)};
+    }
+
+    @media #{query('l')} {
+        --space-6: #{rem(128)};
+        --space-5: #{rem(80)};
+        --space-4: #{rem(56)};
+        --space-3: #{rem(40)};
+        --space-2: #{rem(32)};
+        --space-1: #{rem(24)};
+    }
+
+    //
+    // spacing tokens
+    //
+    --maw: #{rem(1440)}; // max-width
+    --maw-w: #{rem(1100)}; // wide
+    --maw-n: #{rem(885)}; // narrow
+    --maw-xn: #{rem(653)}; // extra narrow
+
+    --vp-h: 100vh; // 100vh means different things between browsers. This (and the alternates below for android and iOS) helps smooth this out.
+
+    --space-gutter: var(--space-fixed-2); // space between things
+    --space-gutter-s: calc(var(--space-gutter) / 2); // smaller gutters
+    --space-gutter-v: var(--space-gutter); // vertical space between things
+
+    --space-outer: var(--space-3); // space from the outside of a thing to the edge of the browser
+    --space-outer-v: var(--space-6); // space from the outside of a thing to the next thing
+
+    --space-inner: var(--space-2); // space from a thing to the edge of its parent (card edge to text)
+    --space-inner-v: var(--space-3); // space from a thing to the top or bottom of its parent (card top top text)
+
+    --space-columns: 4; // number of columns in a grid
+
+    @media #{query('m')} {
+        --space-columns: 8;
+        --space-outer: var(--space-2);
+    }
+
+    @media #{query('l')} {
+        --space-columns: 12;
+        --space-outer: var(--space-5);
+    }
+}
+
+//
+// for android chrome
+//
+html[data-useragent*='Mobile Safari'] {
+    --vp-h: calc(100vh - 55px);
+}
+
+//
+// for iOS
+//
+html[data-useragent*='iPhone'][data-useragent*='Safari'],
+html[data-useragent*='iPad'][data-useragent*='Safari'] {
+    --vp-h: -webkit-fill-available;
+}

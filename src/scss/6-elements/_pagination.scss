@@ -1,0 +1,50 @@
+@use '2-tools/units' as *;
+@use '2-tools/colors' as *;
+@use '2-tools/mixin-fonts' as *;
+
+.pagination {
+    align-items: center;
+    display: flex;
+}
+
+.pagination__list {
+    display: flex;
+    gap: var(--space-fixed-1);
+}
+
+.swiper-pagination-bullet,
+.pagination__list-number {
+    background-color: transparent;
+    border: var(--bdw) var(--bds) var(--color-bg);
+    border-radius: var(--bdrs);
+    color: currentColor;
+    cursor: pointer;
+    display: block;
+    height: rem(24);
+    letter-spacing: 0;
+    text-align: center;
+    width: rem(24);
+    @include type('eyebrow-3');
+}
+
+.swiper-pagination-bullet-active,
+.pagination__list-number.is-selected {
+    background-color: color('blue');
+    color: var(--color-text-btn);
+    transition: var(--trs);
+}
+
+.swiper-pagination-bullet:focus-visible,
+.pagination__list-number:focus-visible {
+    border: var(--bdw) var(--bds) var(--color-bg-btn);
+    outline: 0;
+}
+
+
+@media (hover: hover) {
+    .swiper-pagination-bullet:hover,
+    .pagination__list-number:hover {
+        background-color: color('blue');
+        color: var(--color-text-btn);
+    }
+}

@@ -1,0 +1,79 @@
+@use '2-tools/media-queries' as *;
+@use '2-tools/mixin-grid' as *;
+
+:root {
+    // The --grid-col-width property can be used to specify widths that align
+    // to the global grid for elements that can't be placed on the grid.
+    //
+    // @example
+    // .post-lockup > picture img {
+    //   margin-right: var(--space-gutter);
+    //    width: calc(3 * var(--grid-col-width) + 2 * var(--space-gutter));
+    // }
+    --grid-width: calc(100vw - 2 * var(--space-outer));
+    --total-gutter: 3;
+    --grid-col-width: calc((var(--grid-width) - var(--total-gutter) * var(--space-gutter)) / var(--space-columns));
+
+    @media #{query('m')} {
+        --total-gutter: 7;
+        // --grid-col-width: calc((var(--grid-width) - 7 * var(--space-gutter)) / 8);
+    }
+
+    @media #{query('l')} {
+        --total-gutter: 11;
+        // --grid-col-width: calc((var(--grid-width) - 11 * var(--space-gutter)) / 12);
+    }
+
+    // Viewport is wider than max-width of .container + horizontal padding, so
+    // width matches .container max-width
+    //
+    // var(--maw) + 2 * var(--space-outer) = 1440px + 2 * 78px = 1596px
+    @media (min-width: 1596px) {
+        --grid-width: 1440px;
+    }
+}
+
+// Grid
+.grid {
+    @include grid;
+}
+
+.grid > .grid {
+    grid-column: 1 / -1;
+}
+
+.grid--no-row-gap {
+    grid-row-gap: 0;
+}
+
+.grid--2up {
+    --grid: repeat(1, minmax(10px, 1fr));
+
+    @media #{query('m')} {
+        --grid: repeat(2, minmax(10px, 1fr));
+    }
+}
+
+.grid--2up .grid__item:only-child {
+    grid-column: 1 / -1;
+}
+
+.grid--3up {
+    --grid: repeat(1, minmax(10px, 1fr));
+
+    @media #{query('m')} {
+        --grid: repeat(3, minmax(10px, 1fr));
+    }
+}
+
+.grid--4up {
+    --grid: repeat(1, minmax(10px, 1fr));
+
+    @media #{query('m')} {
+        --grid: repeat(2, minmax(10px, 1fr));
+    }
+
+    @media #{query('xl')} {
+        --grid: repeat(4, minmax(10px, 1fr));
+    }
+}

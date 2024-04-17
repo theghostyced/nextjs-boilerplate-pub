@@ -1,0 +1,57 @@
+@use '2-tools/units' as *;
+
+.card {
+    background-color: var(--color-bg);
+    border-radius: var(--bdrs);
+    color: var(--color-text);
+    display: block;
+    position: relative;
+}
+
+.card:is(a) {
+    cursor: pointer;
+}
+
+.card:is(a) > * {
+    color: currentColor;
+    text-decoration: none;
+}
+
+.card--vertical {
+    min-height: 100%;
+    width: rem(320);
+}
+
+.card--horizontal {
+    display: flex;
+    width: rem(650);
+}
+
+.card--horizontal > * {
+    flex: 1;
+}
+
+.card__tag {
+    left: var(--space-fixed-1);
+    position: absolute;
+    top: var(--space-fixed-1);
+}
+
+.card__content {
+    display: grid;
+    padding: var(--space-fixed-2);
+}
+
+.card__content .bottom {
+    align-self: end;
+    margin-top: var(--space-fixed-3);
+}
+
+// Update frame radius depending of variant
+.card .card__media .frame {
+    border-radius: var(--bdrs) var(--bdrs) 0 0;
+}
+
+.card--horizontal .card__media .frame {
+    border-radius: var(--bdrs) 0 0 var(--bdrs);
+}

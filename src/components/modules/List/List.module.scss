@@ -1,0 +1,87 @@
+@use '2-tools/colors' as *;
+@use '2-tools/media-queries' as *;
+@use '2-tools/mixin-fonts' as *;
+@use '2-tools/units' as *;
+
+// List
+.list--two-columns {
+  @media #{query('m')} {
+    column-gap: var(--space-fixed-2);
+    display: grid;
+    // distribute item as columns instead of distributing per row
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, minmax(10px, 1fr));
+    grid-template-rows: repeat(calc(#{var(--total)} / 2), 1fr);
+    row-gap: 0;
+  }
+}
+
+.list--ordered {
+  counter-reset: indexed-list;
+}
+
+// if headline
+.listModule .list {
+  grid-column: 1 / -1;
+}
+
+.list__headline {
+  grid-column: 1 / -1;
+
+  @media #{query('l')} {
+    grid-column: auto / span 6;
+  }
+}
+
+.list--headline {
+  @media #{query('m')} {
+    grid-column: 4 / span 5;
+  }
+
+  @media #{query('l')} {
+    grid-column: auto / span 6;
+  }
+}
+
+// .listModule .headline__content,
+// .listModule .headline__cta {
+//   grid-column: auto / span 10;
+// }
+
+// List items
+.listItem {
+  align-items: flex-start;
+  display: flex;
+  padding-block: var(--space-fixed-3);
+}
+
+.list--ordered .listItem {
+  counter-increment: indexed-list;
+  position: relative;
+}
+
+.list--ordered .listItem::before {
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  background: color('grey', '900');
+  border-radius: var(--bdrs);
+  color: var(--color-text-btn);
+  content: counter(indexed-list);
+  display: flex;
+  font-size: var(--fz-eyebrow-3);
+  justify-content: center;
+  line-height: var(--lh-eyebrow-3);
+  margin-right: var(--space-fixed-2);
+  margin-top: rem(4);
+  width: rem(24);
+}
+
+.listItem > * {
+  flex: 1;
+}
+
+@media (hover: hover) {
+  .listItem:hover .btn__text {
+    text-decoration: underline;
+  }
+}

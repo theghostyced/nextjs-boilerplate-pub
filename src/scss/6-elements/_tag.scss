@@ -1,0 +1,41 @@
+@use '2-tools/colors' as *;
+@use '2-tools/units' as *;
+
+.tag {
+    align-items: center;
+    background-color: var(--color-dark);
+    border: var(--bdw) var(--bds) var(--color-dark);
+    border-radius: var(--bdrs);
+    color: var(--color-light);
+    display: inline-flex;
+    gap: var(--space-fixed-1);
+    max-width: 100%;
+    padding: calc(var(--space-fixed-1) / 2) var(--space-fixed-1);
+    text-align: center;
+    text-transform: uppercase;
+    transition: var(--trs);
+}
+
+.tag--sharp {
+    border-radius: 0;
+}
+
+.tag--rounded {
+    border-radius: rem(24);
+}
+
+.tag--link {
+    text-decoration: none;
+}
+
+.tag--link:focus-visible {
+    --color-dark: #{color('grey', '900')};
+    border-color: var(--color-bg);
+    outline: 0;
+}
+
+@media (hover: hover) {
+    .tag--link:hover {
+        --color-dark: #{color('grey', '900')};
+    }
+}

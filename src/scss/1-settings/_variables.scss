@@ -1,0 +1,183 @@
+@use 'sass:math';
+@use '2-tools/units';
+
+// Asset directories
+$static-dir: 'static'; // can also be ../ or /
+$font-dir: 'fonts';
+$images-dir: 'img';
+
+
+// Colors
+$colors: (
+'blue': (
+    'base': #382BEA,
+    '50': #F6F6FF,
+    '100': #E0E0FF,
+    '200': #C1C1FF,
+    '300': #A3A2FF,
+    '400': #7D7CFF,
+    '500': #5956FF,
+    '600': #382BEA,
+    '700': #2623C1,
+    '800': #181499,
+    '900': #050085,
+),
+'purple': (
+    'base': #B825CD,
+    '50': #FBF4FE,
+    '100': #F1DBFD,
+    '200': #E5B5FC,
+    '300': #DA8DFA,
+    '400': #CF51F7,
+    '500': #B825CD,
+    '600': #8F00A3,
+    '700': #6E1087,
+    '800': #530A66,
+    '900': #3F064E,
+),
+'red': (
+    'base': #E00000,
+    '50': #FFF0F0,
+    '100': #FFDADA,
+    '200': #FFB4B4,
+    '300': #F88,
+    '400': #F44,
+    '500': #E00000,
+    '600': #A00,
+    '700': #800,
+    '800': #670000,
+    '900': #500000,
+),
+'green': (
+    'base': #008030,
+    '50': #F1F9F0,
+    '100': #CFEACE,
+    '200': #8DD981,
+    '300': #61C15E,
+    '400': #009F3E,
+    '500': #008030,
+    '600': #006223,
+    '700': #004D1F,
+    '800': #00391E,
+    '900': #002A0F,
+),
+'yellow': (
+    'base': #F8BD00,
+    '50': #FFF6E0,
+    '100': #FFE08E,
+    '200': #F8BD00,
+    '300': #E89C00,
+    '400': #C37C00,
+    '500': #9D6300,
+    '600': #754900,
+    '700': #5F3A00,
+    '800': #472A00,
+    '900': #361F00,
+),
+'grey': (
+    'base': #545454,
+    '50': #F6F6F6,
+    '100': #E2E2E2,
+    '200': #C6C6C6,
+    '300': #ABABAB,
+    '400': #8B8B8B,
+    '500': #6F6F6F,
+    '600': #545454,
+    '700': #424242,
+    '800': #303030,
+    '900': #242424,
+),
+'white': #FFF,
+'black': #000,
+);
+
+
+// Dimensions
+// NOTE: Updates to breakpoint values should also be made in _src/static/js/lib/kit-module.js
+// wider: specific for search
+$breakpoints: (
+'wider': units.em(1441, 16),
+'xxl': units.em(1440, 16),
+'xl': units.em(1280, 16),
+'l': units.em(960, 16),
+'m': units.em(600, 16),
+'s': units.em(481, 16),
+'nav': units.em(1000, 16),
+);
+
+
+// Zindex
+$zindex: (
+'modal': 900,
+'overlay': 800,
+'dropdown': 700,
+'header': (
+    'base': 600,
+    'mid': 650,
+    'high': 690,
+),
+'footer': 500,
+);
+
+
+// Spaces array to create utility classes
+// ex: class="u-mt--space-3"
+$spaces: '1', '2', '3', '4', '5', '6', 'fixed-1', 'fixed-2', 'fixed-3', 'fixed-4', 'fixed-5';
+
+
+// Fonts family to create utility classes
+// ex: class=".f-sans"
+$font-families: (
+'sans': (
+    'font-family': 'var(--ff-sans)',
+    'font-weight': 'normal',
+),
+'sans-bold': (
+    'font-family': 'var(--ff-sans)',
+    'font-weight': 'bold',
+),
+'serif': (
+    'font-family': 'var(--ff-serif)',
+    'font-weight': 'normal',
+),
+'serif-bold': (
+    'font-family': 'var(--ff-serif)',
+    'font-weight': 'bold',
+),
+);
+
+
+// Font Sizes map to create utility classes
+// ex: class="type-headline-1"
+//
+// accepted prefixes:
+//     fz (font-size)
+//     lh (line-height)
+//     lts (letter-spacing)
+//     tt (text-transform)
+//     fw (font-weight)
+//
+// note:
+// fz and lh are applied automatically, even if not assigned in the lists
+$font-sizes: (
+'display-1': (),
+'display-2': (),
+'display-3': (),
+'headline-1': (),
+'headline-2': (),
+'headline-3': (),
+'subhead-1': (),
+'subhead-2': (),
+'subhead-3': (),
+'eyebrow-1': ('fw', 'tt', 'lts'),
+'eyebrow-2': ('fw', 'tt', 'lts'),
+'eyebrow-3': ('fw', 'tt', 'lts'),
+'body-1': (),
+'body-2': (),
+'body-3': (),
+'ui-1': (),
+'ui-2': (),
+'ui-3': (),
+'caption-1': (),
+'caption-2': (),
+);

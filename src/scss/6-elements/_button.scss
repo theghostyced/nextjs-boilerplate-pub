@@ -1,0 +1,202 @@
+@use '2-tools/colors' as *;
+@use '2-tools/mixin-button' as *;
+@use '2-tools/units' as *;
+
+// Buttons
+// --------------------------------------------------------
+//
+// Your standard button provides an easily identified clickable
+// target.
+//
+// Note: do not use `role="button"` on link elements that are
+// behaving as links. Doing that tells a screen reader that
+// the element is a button but the space bar does not work
+// to trigger the link. This can be fixed with JS, but there
+// is no reason when we should probably avoid the use in the
+// first place.
+//
+// <button> elements with a class attribute do not receive
+// these styles by default. Use the .btn class to add them.
+//
+// --------------------------------------------------------
+button:where(:not([class])),
+[role='button']:where(:not([class])),
+.btn {
+    @include button;
+}
+
+// HOVER
+button:where(:not([class])):hover,
+[role='button']:where(:not([class])):hover,
+.btn:hover {
+    --color-bg-btn: #{color('blue', '700')};
+    outline: 0;
+}
+
+.btn--sharp {
+    border-radius: 0;
+}
+
+.btn--rounded {
+    border-radius: rem(24);
+}
+
+
+// FOCUS
+button:where(:not([class])):focus-visible,
+[role='button']:where(:not([class])):focus-visible,
+.btn:focus-visible {
+    --color-bg-btn: #{color('blue', '700')};
+    border: var(--bdw) var(--bds) color('grey', '200');
+    outline: 0;
+}
+
+// button themes
+// --------------------------------------------------------
+//
+//  Example: .btn--secondary
+//  <a href="#" class="btn btn--secondary">Secondary button</a>
+//
+// --------------------------------------------------------
+.btn--secondary {
+    @include button-secondary;
+}
+
+.btn--secondary:hover {
+    --color-bg-btn: #{color('blue', '900')};
+}
+
+.btn--secondary:focus-visible {
+    --color-bg-btn: #{color('blue', '900')};
+    border-color: color('grey', '200');
+}
+
+// btn--flex
+// --------------------------------------------------------
+//
+//  A btn modifier - makes the button display flex, 100%
+//  width and aligns the text to the center.  Left and
+//  right padding can be removed here to help longer text,
+//  flow better.
+//
+//  Example: .btn--flex
+//  <a href="#" class="btn btn--flex">Flex button</a>
+//
+// --------------------------------------------------------
+.btn--flex {
+    @include button-flex;
+}
+
+
+
+
+// btn--inline
+// --------------------------------------------------------
+//
+//  A btn modifier - makes the button smaller for usage
+//  within flowing text.
+//
+//  Example: .btn--inline
+//  <a href="#" class="btn btn--inline">inline button</a>
+//
+// --------------------------------------------------------
+.btn--inline {
+    @include button-inline;
+}
+
+
+
+
+// btn--text
+// --------------------------------------------------------
+//
+//  A btn modifier - makes the button display as a link.
+//
+//  Example: .btn--text
+//  <a href="#" class="btn btn--text">text button</a>
+//
+// --------------------------------------------------------
+.btn--text {
+    @include button-text;
+}
+
+.btn--text::before {
+    background-color: currentcolor;
+    bottom: 0;
+    content: '';
+    height: 1px;
+    left: 10%;
+    opacity: 0;
+    position: absolute;
+    transition: var(--trs);
+    width: 90%;
+}
+
+@media (hover: hover) {
+    .btn--text:hover::before {
+        opacity: 1;
+    }
+}
+
+// btn-row
+// --------------------------------------------------------
+//
+//  A wrapper for groups of buttons
+//
+//  Example: .btn-row
+//  <div class="btn-row"><a href="#" class="btn">button 1</a>
+//  <a href="#" class="btn">button 2</a></div>
+//
+// --------------------------------------------------------
+.btn-row {
+    @include button-row;
+}
+
+.btn-row > * {
+    flex: 0 0 auto;
+}
+
+.btn-row--center {
+    justify-content: center;
+}
+
+
+// btn-icon
+// --------------------------------------------------------
+//
+//  SVG icons in buttons
+//
+// --------------------------------------------------------
+.btn--animated .btn__icon {
+    transition: var(--trs);
+}
+
+.btn--secondary:hover .btn__icon,
+.btn--secondary:focus-visible .btn__icon {
+    fill: var(--color-text-soft);
+}
+
+// icon in a wrap
+.btn--animated:hover .btn__icon,
+.btn--animated:focus-visible .btn__icon {
+    transform: none;
+}
+
+// icon not in a wrap
+.btn--animated:hover > .btn__icon,
+.btn--animated:focus-visible > .btn__icon {
+    transform: translateX(10%);
+}
+
+
+// ---
+// Reset default browser styles for simpler styling of <button> elements.
+// Primarily for use by elements that need to apply custom visual appearance
+// while retaining <button>'s built-in semantics.
+// Note: this also removes the default focus behaviour
+// ---
+.u-button-reset {
+    all: initial;
+    cursor: pointer;
+    line-height: 1;
+}

@@ -1,0 +1,82 @@
+@use '3-tokens/theme' as *;
+
+//
+//   @sections
+// --------------------------------------------------------
+//
+//  Individual horizontal chunks of the page. These styles
+//  are good for vertical spacing between modules and
+//  background colors.
+//
+//  **Note:** sections rely on collapsing margins to display
+//  properly. Unfortunately `display:grid` (and other
+//  friends) do not collapse, which may require a wrapper
+//  div with the .section class to achieve the desired
+//  results.
+//
+// --------------------------------------------------------
+.section {
+    padding-block: var(--space-outer-v);
+    padding-inline: var(--space-outer);
+}
+
+.section:where([class*='theme-']) {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.section:first-child:where(:not([class*='theme-'])) {
+    // padding-block-start: 0 !important;
+}
+
+.section:last-child:where(:not([class*='theme-'])) {
+    // padding-block-end: 0 !important;
+}
+
+// Collapse top padding if the preceding .section element uses the same theme
+//
+// By default, top padding will collapse to 0px. To set a custom size for a
+// given module, set --space-section-collapsed in that module's stylsheet:
+//
+// .quote {}
+//     --space-section-collapsed: calc(var(--space-outer-v) / 2);
+// }
+//
+// NOTE: Sections without a theme class are treated like sections using
+// .theme-default, each of which will collapse if preceded by the other.
+// ---
+$selectors: append($theme-classes, ':is(.theme-default, :not([class*="theme-"]))');
+@each $selector in $selectors {
+    body:not([class*='theme-']) .section:not(.hero)#{$selector} + .section#{$selector} {
+        padding-block-start: var(--space-section-collapsed, 0);
+    }
+}
+
+
+
+
+//
+//   @section--flush
+// --------------------------------------------------------
+//
+//  Section variant that removes vertical spacing.
+//
+// --------------------------------------------------------
+.section--flush {
+    padding-block: 0;
+}
+
+
+.section--flush-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+// ----------------------------------
+// scroll margin for
+// sections that have an id
+// for jump links
+// ----------------------------------
+.section[id] {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-3));
+}

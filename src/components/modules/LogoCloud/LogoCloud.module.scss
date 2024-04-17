@@ -1,0 +1,118 @@
+@use '2-tools/media-queries' as *;
+@use '2-tools/mixin-fonts' as *;
+@use '2-tools/units' as *;
+
+.logo-cloud {
+  --logo-colspan: 4;
+  --logo-mah: var(--space-4);
+  --logo-miw: 75vw;
+
+  width: 100%;
+
+  @media #{query('m')} {
+    --logo-colspan: 4;
+    --logo-miw: 50vw;
+  }
+
+  @media #{query('l')} {
+    --logo-colspan: 3;
+    --logo-miw: 25vw;
+  }
+}
+
+.logo-cloud--scroll {
+  padding-inline: 0;
+}
+
+.logo-cloud > * {
+  grid-column: 1 / -1;
+}
+
+//
+// Images
+//
+.logo-cloud__images {
+  // `column-gap` should always match the system grid
+  row-gap: var(--space-fixed-2);
+}
+
+.logo-cloud--scroll .logo-cloud__images {
+  column-gap: var(--space-gutter);
+  /* match .grid */
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: left;
+  max-width: 100vw;
+  overflow-x: scroll;
+  padding-inline: var(--space-outer);
+  /* match .section */
+  width: auto;
+}
+
+// Image
+.logo-cloud__image {
+  align-self: center;
+  background-color: var(--color-divider);
+  border-radius: var(--bdrs);
+  display: flex;
+  grid-column-end: span var(--logo-colspan);
+  justify-content: center;
+  padding-block: calc(2 * var(--space-fixed-4));
+  padding-inline: var(--space-fixed-4);
+}
+
+[data-initialized='true'] .logo-cloud__image--overflow {
+  // Hide overflowed images at mobile widths
+  display: none;
+
+  @media #{query('m')} {
+    display: flex;
+  }
+}
+
+[data-expanded='true'] .logo-cloud__image--overflow {
+  // Display overflowed images
+  display: flex;
+}
+
+.logo-cloud--scroll .logo-cloud__image {
+  min-width: var(--logo-miw);
+}
+
+.logo-cloud__image img {
+  max-height: var(--logo-mah);
+  width: auto;
+}
+
+//
+// Toggle Button
+//
+.logo-cloud__toggle {
+  align-items: center;
+  color: inherit;
+  column-gap: var(--space-fixed-2);
+  display: none; // Hide by default
+  font-family: inherit;
+  margin-inline: auto;
+
+  @include font-family('sans');
+  @include type('ui-3');
+}
+
+[data-initialized='true'] .logo-cloud__toggle {
+  // Make visible at mobile viewport widths if module has been initialized
+  display: flex;
+  margin-top: var(--space-gutter);
+
+  @media #{query('m')} {
+    display: none;
+  }
+}
+
+.logo-cloud__toggle svg {
+  width: rem(24);
+}
+
+.logo-cloud__toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,74 @@
+@use '2-tools/colors' as *;
+@use '2-tools/media-queries' as *;
+@use '2-tools/mixin-grid' as *;
+
+.hero {
+  --ratio: 3/5;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow: hidden;
+  padding-block: 0;
+  place-items: center;
+  position: relative;
+
+  @media #{query('m')} {
+    --ratio: 4/5;
+  }
+
+  @media #{query('l')} {
+    --ratio: 16/9;
+  }
+}
+
+.hero--media {
+  aspect-ratio: var(--ratio);
+  max-height: clamp(800px, 100vh, 1000px);
+  width: 100%;
+}
+
+.hero--browser {
+  height: 100vh;
+}
+
+.hero--content {
+  padding-block: var(--space-5);
+}
+
+.hero__media {
+  background-color: var(--color-bg);
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.hero__content {
+  color: var(--color-text);
+  grid-column: 1 / -1;
+  z-index: 1;
+
+  @media #{query('xxl')} {
+    grid-column: 2 / span 6;
+  }
+}
+
+.hero__content__text {
+  @media #{query('l')} {
+    @include fakeGridWidth(4);
+  }
+}
+
+.hero__content__text > :first-child {
+  margin: 0;
+}
+
+// .hero__cta {
+//   justify-content: center;
+// }
+.hero__media .frame {
+  border-radius: 0;
+}
+
+.hero__media img,
+.hero__media video {
+  opacity: 0.8;
+}

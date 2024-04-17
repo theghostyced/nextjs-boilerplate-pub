@@ -1,0 +1,32 @@
+:root {
+    --ratio: 'auto';
+}
+
+.frame {
+    align-items: center;
+    aspect-ratio: var(--ratio);
+    border-radius: var(--bdrs);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.frame > picture,
+.frame img,
+.frame > video {
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+}
+
+.frame--1-1 {
+    --ratio: 1/1;
+}
+
+.frame--4-5 {
+    --ratio: 4/5;
+}
+
+.frame--16-9 {
+    --ratio: 16/9;
+}

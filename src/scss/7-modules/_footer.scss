@@ -1,0 +1,116 @@
+@use '2-tools/media-queries' as *;
+@use '2-tools/units' as *;
+@use '2-tools/mixin-fonts' as *;
+
+// --------------------------------------------------------
+// Footer
+// --------------------------------------------------------
+.site-footer {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  padding-inline: var(--space-outer);
+}
+
+.site-footer a {
+  color: var(--color-text-link);
+  text-decoration: none;
+  transition: var(--trs);
+}
+
+.site-footer a:hover {
+  color: var(--color-text-link-hover);
+}
+
+.site-footer a:focus-visible {
+  background-color: var(--color-text);
+  box-shadow: 0 0 0 min(0.5em, 0.25rem) var(--color-text);
+  color: var(--color-bg);
+  outline: none;
+}
+
+// --------------------------------------------------------
+// Credits
+// --------------------------------------------------------
+.footer-credits {
+  border-top: rem(1) solid var(--color-divider);
+  display: flex;
+  gap: var(--space-fixed-2);
+  margin-top: var(--space-6);
+  padding-block: var(--space-3);
+}
+
+.site-credits {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.site-credits > * + *::before {
+  content: '•';
+  margin-inline: var(--space-fixed-1);
+}
+
+// Social Media Links
+.social-links {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(12);
+}
+
+.social-links::before {
+  content: '•';
+  @include type('ui-3');
+}
+
+.social-links__icon {
+  display: block;
+  height: var(--space-fixed-2);
+}
+
+.social-links__link {
+  display: block;
+  padding: 0.25em; // increase size of click/tap target
+}
+
+// --------------------------------------------------------
+// Branding
+// --------------------------------------------------------
+.site-footer__branding {
+  border-top: rem(1) solid var(--color-divider);
+  padding-block: rem(100);
+  display: block;
+}
+
+// --------------------------------------------------------
+// Headline
+// --------------------------------------------------------
+.site-footer__headline {
+  margin-bottom: var(--space-6);
+
+  @media #{query('l')} {
+    margin-bottom: var(--space-fixed-3);
+  }
+}
+
+// --------------------------------------------------------
+// Nav
+// --------------------------------------------------------
+.footer-nav__item {
+  grid-column: 1 / -1;
+  margin-bottom: var(--space-4);
+
+  @media #{query('m')} {
+    grid-column: auto / span 2;
+  }
+}
+
+.footer-nav__item:first-child {
+  @media #{query('m')} {
+    grid-column-start: 3;
+  }
+
+  @media #{query('l')} {
+    grid-column-start: 7;
+  }
+}

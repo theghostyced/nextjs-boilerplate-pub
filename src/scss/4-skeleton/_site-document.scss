@@ -1,0 +1,47 @@
+@use '1-settings/base-font' as *;
+@use '2-tools/mixin-fonts' as *;
+@use '2-tools/units';
+
+//
+//   @site-document
+// --------------------------------------------------------
+//
+//  Main HTML structure & styles
+//  Main body structure & styles
+//
+// --------------------------------------------------------
+
+//   @HTML
+// --------------------------------------------------------
+//
+//  HTML should contain the site's default background color
+//  and font-size
+//
+// --------------------------------------------------------
+html {
+    background: var(--color-bg);
+    font-size: units.em($base-font-size, 16);
+    min-height: 100%;
+}
+
+//   @body
+// --------------------------------------------------------
+//
+//  Body should contain the document's default font and
+//  background color for the content, if that background
+//  color is different than the html.
+//
+// --------------------------------------------------------
+body {
+    @include font-family('sans');
+
+    background: var(--color-bg);
+    color: var(--color-text);
+    // font-size: set in _1_base/properties/_font-sizes.scss
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    line-height: $base-line-height;
+    margin: 0;
+    min-height: 100%;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}

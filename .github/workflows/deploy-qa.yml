@@ -1,0 +1,38 @@
+---
+name: Deploy QA
+
+#
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
+
+on:
+  push:
+    branches:
+      - main
+      - opennext
+
+
+jobs:
+  deploy:
+    name: Deploy QA Site
+
+    concurrency:
+      group: deploy-qa-check
+      cancel-in-progress: true
+
+    uses: ./.github/workflows/build-and-deploy.yml
+    with:
+      github-ref: ${{ github.ref }}
+      env: qa
+      hosted-zone-domain: 'fk-kit.net'
+      custom-domain: 'nextjs-qa.fk-kit.net'
+      certificate-arn: 'arn:aws:acm:us-east-1:993806592074:certificate/cbce8bcd-a71c-401b-a052-cd7f3f8151b9'
+      storybook-s3-bucket: 'fk-kit-nextjs-storybook'
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENTFUL_TOKEN: ${{ secrets.CONTENTFUL_TOKEN }}
+      CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
+      PREVIEW_SECRET: ${{ secrets.PREVIEW_SECRET }}

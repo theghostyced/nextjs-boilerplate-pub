@@ -1,0 +1,120 @@
+@use 'sass:math';
+@use '2-tools/units' as *;
+@use '2-tools/media-queries' as *;
+
+// see `1-settings/variables` for specific
+// family/weight combos definitions
+//
+// use `2-tools/mixin-fonts` for mixins to apply
+// family/weight combos to elements
+//
+// 3rd-party fonts are embedded in `3-tokens/font-family`
+
+
+
+//
+// typography properties
+//
+:root {
+    // Display
+    --fz-display-1: #{rem(72)};
+    --lh-display-1: 105%;
+    --fz-display-2: #{rem(60)};
+    --lh-display-2: 105%;
+    --fz-display-3: #{rem(40)};
+    --lh-display-3: 105%;
+
+    // Headline
+    --fz-headline-1: #{rem(28)};
+    --lh-headline-1: 105%;
+    --fz-headline-2: #{rem(28)};
+    --lh-headline-2: 105%;
+    --fz-headline-3: #{rem(24)};
+    --lh-headline-3: 105%;
+
+    // Subhead
+    --fz-subhead-1: #{rem(24)};
+    --lh-subhead-1: 130%;
+    --fz-subhead-2: #{rem(20)};
+    --lh-subhead-2: 140%;
+    --fz-subhead-3: #{rem(18)};
+    --lh-subhead-3: 135%;
+
+    // Eyebrow
+    --fz-eyebrow-1: #{rem(16)};
+    --lh-eyebrow-1: auto;
+    --lts-eyebrow-1: #{rem(1.4)};
+    --fw-eyebrow-1: 700;
+    --tt-eyebrow-1: uppercase;
+    --fz-eyebrow-2: #{rem(14)};
+    --lh-eyebrow-2: auto;
+    --tt-eyebrow-2: uppercase;
+    --fw-eyebrow-2: 700;
+    --lts-eyebrow-2: #{rem(1.4)};
+    --fz-eyebrow-3: #{rem(10)};
+    --lh-eyebrow-3: auto;
+    --tt-eyebrow-3: uppercase;
+    --fw-eyebrow-3: 700;
+    --lts-eyebrow-3: #{rem(1.4)};
+
+    // Body
+    --fz-body-1: #{rem(18)};
+    --lh-body-1: 130%;
+    --fz-body-2: #{rem(16)};
+    --lh-body-2: 130%;
+    --fz-body-3: #{rem(14)};
+    --lh-body-3: 130%;
+
+    // Ui
+    --fz-ui-1: #{rem(18)};
+    --lh-ui-1: 130%;
+    --fz-ui-2: #{rem(16)};
+    --lh-ui-2: 130%;
+    --fz-ui-3: #{rem(12)};
+    --lh-ui-3: 130%;
+
+    // Caption
+    --fz-caption-1: #{rem(14)};
+    --lh-caption-1: 130%;
+    --fz-caption-2: #{rem(13)};
+    --lh-caption-2: 130%;
+
+    @media #{query('m')} {
+        // Display
+        --fz-display-1: #{rem(96)};
+        --fz-display-2: #{rem(72)};
+        --fz-display-3: #{rem(60)};
+
+        // Headline
+        --fz-headline-1: #{rem(48)};
+        --fz-headline-2: #{rem(40)};
+        --fz-headline-3: #{rem(32)};
+    }
+
+    @media #{query('l')} {
+        // Display
+        --fz-display-1: #{rem(128)};
+        --fz-display-2: #{rem(96)};
+        --fz-display-3: #{rem(72)};
+
+        // Headline
+        --fz-headline-1: #{rem(60)};
+        --fz-headline-2: #{rem(48)};
+        --fz-headline-3: #{rem(40)};
+
+        // Subhead
+        --fz-subhead-1: #{rem(32)};
+        --fz-subhead-2: rem(24);
+        --fz-subhead-3: rem(20);
+
+        // Eyebrow
+        --fz-eyebrow-1: #{rem(18)};
+        --fz-eyebrow-2: #{rem(16)};
+        --fz-eyebrow-2: #{rem(12)};
+
+        // Body
+        --fz-body-1: #{rem(20)};
+        --fz-body-2: #{rem(18)};
+        --fz-body-3: #{rem(16)};
+    }
+}

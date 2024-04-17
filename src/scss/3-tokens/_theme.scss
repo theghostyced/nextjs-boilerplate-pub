@@ -1,0 +1,69 @@
+@use '2-tools/colors' as *;
+
+// Used to programmatically generate rules in other stylesheets; should be
+// updated to reflect new or updated theme class names.
+$theme-classes: '.theme-light', '.theme-dark';
+
+// Color Tokens
+:root,
+.theme-light {
+    --color-bg: #{color('white')};
+    --color-text: #{color('black')};
+    --color-text-soft: #{color('grey', '500')};
+
+    // since body and text colors need to be standardized when used in conjunction with images, there are separate properties that do not change for dark mode
+    --color-light: #{color('white')};
+    --color-dark: #{color('black')};
+
+
+    // other color roles
+    --color-text-link: #{color('black')};
+    --color-text-link-hover: #{color('blue', '500')};
+
+    --color-text-critical: #{color('red', '500')};
+    --color-text-success: #{color('green', '500')};
+    --color-text-warning: #{color('yellow', '200')};
+
+    --color-divider: #{color('grey', '100')};
+
+    // a11ty
+    --color-focus-bg: #{color('black')};
+    --color-focus-text: #{color('white')};
+
+    // buttons
+    --color-bg-btn: #{color('blue')};
+    --color-text-btn: #{color('white')};
+}
+
+.theme-dark {
+    --color-bg: #{color('black')};
+    --color-text: #{color('white')};
+    --color-text-soft: #{color('grey', '400')};
+
+    --color-light: #{color('black')};
+    --color-dark: #{color('white')};
+
+    // other color roles
+    --color-text-link: #{color('white')};
+    --color-text-link-hover: #{color('blue', '300')};
+
+    --color-text-critical: #{color('red', '500')};
+    --color-text-success: #{color('green', '500')};
+    --color-text-warning: #{color('yellow', '200')};
+
+    --color-divider: #{color('grey', '700')};
+
+    // a11ty
+    --color-focus-bg: #{color('white')};
+    --color-focus-text: #{color('black')};
+
+    // buttons
+    --color-bg-btn: #{color('blue')};
+    --color-text-btn: #{color('white')};
+}
+
+// theme utility classes
+// [class*='theme-'] {
+//     background-color: var(--color-bg);
+//     color: var(--color-text);
+// }

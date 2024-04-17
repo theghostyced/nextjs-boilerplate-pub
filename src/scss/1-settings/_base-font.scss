@@ -1,0 +1,12 @@
+@use 'sass:math';
+
+// Base Font
+// ---------------------------------------------------------
+//
+// Dimensions variables are used for several baseline
+// settings, such as font-size and line-height.
+//
+// ---------------------------------------------------------
+
+$base-font-size: 16;
+$base-line-height: math.div(24, $base-font-size);

@@ -1,0 +1,50 @@
+@use '2-tools/mixin-spacing';
+@use '6-elements/headings';
+@use '6-elements/lists';
+@use '6-elements/quotes';
+@use '6-elements/tables';
+
+//   @text
+// --------------------------------------------------------
+//
+//  Scoping text element styles so we aren't fighting
+//  specificity.
+//
+//  See http://guerillalabs.co/blog/styling-text-elements.html
+//
+// --------------------------------------------------------
+.text {
+    --text-spacing: var(--stack-spacing, 1.5em);
+
+    @include mixin-spacing.margin-container;
+
+    @include headings.headings;
+
+    @include lists.lists;
+
+    @include quotes.quotes;
+
+    @include tables.tables;
+}
+
+.text .multimedia,
+.text .lite-video,
+.text .twitter-tweet-rendered,
+.text .instagram-media-rendered,
+.text .tiktok-embed {
+    margin: calc(var(--text-spacing) * 2) auto !important;
+}
+
+.text .instagram-media-rendered {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    width: 326px !important;
+}
+
+.text > :first-child {
+    margin-top: 0 !important;
+}
+
+.text > :last-child {
+    margin-bottom: 0 !important;
+}

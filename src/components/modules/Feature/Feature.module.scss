@@ -1,0 +1,155 @@
+@use '2-tools/units' as *;
+@use '2-tools/media-queries' as *;
+
+// --------------------------------------------------------
+// Base Container
+// --------------------------------------------------------
+.feature {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  @media #{query('m')} {
+    align-items: center;
+  }
+}
+
+.feature--content-top {
+  @media #{query('m')} {
+    align-items: start;
+  }
+}
+
+.feature--content-bottom {
+  @media #{query('m')} {
+    align-items: end;
+  }
+}
+
+// --------------------------------------------------------
+// Link
+// If the feature itself is a link
+// --------------------------------------------------------
+.feature:is(a) [class*='theme-'] {
+  color: inherit;
+}
+
+.feature:is(a) {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color var(--trs-time) var(--trs-tfunc);
+}
+
+// --------------------------------------------------------
+// Media
+// Image, Video, & Vimeo Embed options
+// --------------------------------------------------------
+.feature__media {
+  grid-column: auto / span 4;
+  position: relative;
+
+  @media #{query('m')} {
+    grid-column: auto / span 3;
+  }
+
+  @media #{query('l')} {
+    grid-column: auto / span 6;
+  }
+}
+
+.feature__media--right {
+  @media #{query('m')} {
+    order: 2;
+  }
+}
+
+.feature__media .feature__img--fixed {
+  align-self: center;
+  height: auto;
+  max-height: 80%;
+  max-width: 80%;
+  width: auto;
+}
+
+.feature__vimeo {
+  border: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.feature__vimeo-play {
+  bottom: var(--space-inner-v);
+  color: var(--color-bg);
+  left: var(--space-outer);
+  padding-left: em(64, 20);
+  position: absolute;
+}
+
+.feature__vimeo-play svg {
+  height: em(63, 20);
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: var(--trs);
+  width: em(49, 20);
+}
+
+.feature__media:hover .feature__vimeo-play svg,
+.feature__media:focus .feature__vimeo-play svg,
+.feature__media:focus-within .feature__vimeo-play svg {
+  fill: currentColor;
+}
+
+// --------------------------------------------------------
+// Text
+// --------------------------------------------------------
+// Contains Header and Text
+.feature__content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  grid-column: auto / span 4;
+  margin-top: var(--space-3);
+
+  @media #{query('m')} {
+    grid-column: auto / span 5;
+    margin-top: 0;
+  }
+
+  @media #{query('l')} {
+    grid-column: auto / span 6;
+    justify-content: center;
+  }
+}
+
+.feature__content--bottom {
+  justify-content: flex-end;
+}
+
+.feature__content--top {
+  justify-content: flex-start;
+}
+
+.feature__card-eyebrow {
+  color: var(--color-text-soft);
+}
+
+.feature__card-text {
+  max-width: 34em;
+}
+
+.feature__content--spaced .feature__card-text {
+  margin-top: auto;
+}
+
+.feature__media--left + .feature__content {
+  @media #{query('l')} {
+    grid-column: 8 / span 5;
+  }
+}

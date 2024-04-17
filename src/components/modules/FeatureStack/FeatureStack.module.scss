@@ -1,0 +1,33 @@
+@use '2-tools/units' as *;
+@use '2-tools/media-queries' as *;
+@use '2-tools/mixin-fonts' as *;
+
+
+// --------------------------------------------------------
+// Base Container
+// --------------------------------------------------------
+.featureStack {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+
+
+
+// --------------------------------------------------------
+// Headline & Headline Elements
+// --------------------------------------------------------
+.featureStack .headline__title {
+    @include type('headline-1');
+}
+
+
+
+
+// --------------------------------------------------------
+// List
+// --------------------------------------------------------
+.featureStack__list,
+.featureStack__list > * + * {
+    margin-top: var(--spacing-space-size-6);
+}

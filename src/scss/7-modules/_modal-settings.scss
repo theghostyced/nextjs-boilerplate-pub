@@ -1,0 +1,30 @@
+@use '2-tools/colors' as *;
+@use '2-tools/units' as *;
+@use '2-tools/mixin-fonts' as *;
+
+$modal-overlay-color: rgba(0, 0, 0, 0.6);
+$modal-background-color: color('white');
+$modal-text-color: color('black');
+
+$modal-max-width: rem(1000);
+$modal-padding: var(--gutter);
+
+$modal-title-color: color('blue');
+$modal-title-font-size: var(--font-size-l);
+$modal-title-weight: bold;
+
+@mixin modal-title {
+    @include font-family('sans');
+
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+$modal-close-color: color('black');
+
+$modal-content-color: color('black');
+$modal-content-margin: var(--gutter);
+
+@mixin modal-content {
+    @include font-family('sans');
+}

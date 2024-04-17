@@ -1,0 +1,69 @@
+@use 'sass:map';
+@use '1-settings/variables' as *;
+
+$font-families: (
+'sans': (
+    'font-family': 'var(--ff-sans)',
+    'font-weight': 'normal',
+),
+'sans-bold': (
+    'font-family': 'var(--ff-sans)',
+    'font-weight': 'bold',
+),
+'serif': (
+    'font-family': 'var(--ff-serif)',
+    'font-weight': 'normal',
+),
+'serif-bold': (
+    'font-family': 'var(--ff-serif)',
+    'font-weight': 'bold',
+)
+) !default;
+
+
+$font-sizes: (
+'type-display': (
+    'font-size': 'var(--fz-display)',
+    'line-height': 'var(--lh-display)',
+),
+'type-headline': (
+    'font-size': 'var(--fz-headline)',
+    'line-height': 'var(--lh-headline)',
+),
+'type-subhead': (
+    'font-size': 'var(--fz-subhead)',
+    'line-height': 'var(--lh-subhead)',
+),
+'type-body': (
+    'font-size': 'var(--fz-body)',
+    'line-height': 'var(--lh-body)',
+)
+) !default;
+
+
+
+
+// use @include font-family('sans');
+@mixin font-family($family) {
+    $familyStyles: map.get($font-families, $family);
+
+    @each $style, $val in $familyStyles {
+        #{$style}: #{$val};
+    }
+}
+
+@mixin type($size) {
+    $typeStyles: map.get($font-sizes, $size);
+
+    font-size: var(--fz-#{$size});
+    line-height: var(--lh-#{$size});
+    @each $style, $val in $typeStyles {
+        @if $style == 'lts' {
+            letter-spacing: var(--lts-#{$size});
+        } @else if $style == 'tt' {
+            text-transform: var(--tt-#{$size});
+        } @else if $style == 'fw' {
+            font-weight: var(--fw-#{$size});
+        }
+    }
+}

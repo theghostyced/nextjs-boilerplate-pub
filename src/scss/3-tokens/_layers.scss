@@ -1,0 +1,39 @@
+:root {
+    //
+    // elevation properties
+    //
+    --shadow-color: 0deg 0% 0%;
+    --shadow-opacity: 0.3;
+
+    --elevation-0: none;
+
+    --elevation-1: drop-shadow(
+        0.5px 1px 1px hsl(var(--shadow-color) / var(--shadow-opacity))
+    );
+
+    --elevation-2: drop-shadow(
+        1px 2px 2px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 3))
+    )
+    drop-shadow(
+        2px 4px 4px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 3))
+    )
+    drop-shadow(
+        3px 6px 6px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 3))
+    );
+
+    --elevation-3: drop-shadow(
+        1px 2px 2px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 5))
+    )
+    drop-shadow(
+        2px 4px 4px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 5))
+    )
+    drop-shadow(
+        4px 8px 8px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 5))
+    )
+    drop-shadow(
+        8px 16px 16px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 5))
+    )
+    drop-shadow(
+        16px 32px 32px hsl(var(--shadow-color) / calc(var(--shadow-opacity) / 5))
+    );
+}

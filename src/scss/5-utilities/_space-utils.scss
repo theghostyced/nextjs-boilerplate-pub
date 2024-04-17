@@ -1,0 +1,13 @@
+@use '1-settings/variables' as *;
+
+// For loop that creates utility margin top and bottom classes based on the spacing variables
+// ex: class="u-mt--space-3"
+@each $spacing in $spaces {
+    .u-mt--space-#{$spacing} {
+        margin-top: var(--space-#{$spacing});
+    }
+
+    .u-mb--space-#{$spacing} {
+        margin-bottom: var(--space-#{$spacing});
+    }
+}

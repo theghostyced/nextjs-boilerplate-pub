@@ -1,0 +1,13 @@
+@use '2-tools/units' as *;
+
+.divider {
+    width: 100%;
+}
+
+.divider hr {
+    background-color: var(--color-divider);
+    border: none;
+    height: rem(1);
+    margin-inline: auto;
+    max-width: var(--maw);
+}

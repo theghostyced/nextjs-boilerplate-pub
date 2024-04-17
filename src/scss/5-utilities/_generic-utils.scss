@@ -1,0 +1,20 @@
+.stack {
+    --stack-spacing: var(--space-gutter-v, 1.5em);
+}
+
+.stack > * + * {
+    margin-top: var(--stack-spacing);
+}
+
+.stack--s > * + * {
+    margin-block-start: var(--space-fixed-1);
+}
+
+.stack--l > * + * {
+    margin-block-start: var(--space-fixed-3);
+}
+
+.u-link-reset {
+    color: currentColor;
+    text-decoration: none;
+}

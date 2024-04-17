@@ -1,0 +1,115 @@
+@use '2-tools/media-queries' as *;
+@use '2-tools/units' as *;
+
+.quote {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    width: 100%;
+}
+
+.quote--center {
+    text-align: center;
+}
+
+.quote--embedded {
+    // Styles that should only be applied to Quote modules embedded in rich text
+}
+
+
+
+
+//
+// Layout
+//
+.quote .grid {
+    row-gap: var(--space-4);
+    /* gap between media and content */
+}
+
+
+
+
+//
+// Caption
+//
+.quote__caption {
+    margin-top: var(--space-4);
+
+    @media #{query('m')} {
+        column-gap: var(--space-fixed-1);
+        display: flex;
+    }
+}
+
+.quote--center .quote__caption {
+    justify-content: center;
+}
+
+
+
+
+//
+// Citation
+//
+.quote__citation {
+    font-weight: bold;
+}
+
+
+
+
+//
+// Content
+//
+.quote__content {
+    grid-column: 1 / -1;
+
+    @media #{query('l')} {
+        grid-column: 3 / span 8;
+    }
+}
+
+.quote__media+.quote__content {
+    @media #{query('l')} {
+        grid-column: 6 / span 5;
+    }
+}
+
+
+
+
+//
+// Media
+//
+.quote__media {
+    grid-column-end: span 2;
+
+    @media #{query('l')} {
+        grid-column: 3 / span 2;
+    }
+}
+
+
+
+
+//
+// Text
+//
+.quote:not(.quote--center) .quote__text> :first-child {
+    position: relative;
+}
+
+.quote__text> :first-child::before {
+    content: '“';
+}
+
+.quote:not(.quote--center) .quote__text> :first-child::before {
+    // If not centering text, position the opening quotation mark outside the
+    // left edge of the text element to allow text to appear flush.
+    position: absolute;
+    right: 100%;
+}
+
+.quote__text> :last-child::after {
+    content: '”';
+}

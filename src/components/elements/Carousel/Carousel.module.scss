@@ -1,0 +1,37 @@
+@use '2-tools/mixin-reset-elements' as *;
+@use '2-tools/media-queries' as *;
+@use '2-tools/units' as *;
+@use '6-elements/progress-dots' as *;
+
+.carousel {
+    padding-inline: var(--space-outer);
+}
+
+.container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding-left: var(--space-outer);
+    padding-right: var(--space-outer);
+}
+
+.actions__prev,
+.actions__next {
+    @include button-reset;
+    align-items: center;
+    color: var(--color-text);
+    display: inline-flex;
+    justify-content: center;
+    padding: var(--space-fixed-1);
+}
+
+.actions__icon {
+    height: rem(24);
+    width: rem(24);
+}
+
+.actions__prev[disabled],
+.actions__next[disabled] {
+    opacity: 0.3;
+    pointer-events: none;
+}

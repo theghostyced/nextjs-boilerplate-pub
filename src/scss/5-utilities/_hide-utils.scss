@@ -1,0 +1,33 @@
+@use '2-tools/mixin-hide' as *;
+
+[hidden] {
+    display: none !important;
+}
+
+.is-hidden {
+    @include is-hidden;
+}
+
+.is-visually-hidden {
+    @include is-visually-hidden;
+}
+
+
+
+
+// image hiding for responsive designs with pictures and videos
+@media (max-width: 600px) {
+
+    // use 600px here to match the picture source media attribute in the html - see _includes/utilities/responsiveImg/responsiveImg.njk
+    .u-img-hide-small {
+        display: none !important;
+    }
+}
+
+@media (min-width: 601px) {
+
+    // use 601px here to match the picture source media attribute in the html - see _includes/utilities/responsiveImg/responsiveImg.njk
+    .u-img-hide-large {
+        display: none !important;
+    }
+}

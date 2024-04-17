@@ -1,0 +1,64 @@
+@use '2-tools/assets' as *;
+
+// Embed Font
+//
+// Use this mixin to embed a font.
+//
+// ```
+// @include font-face("interstate-light", "interstate_light-webfont");
+// ```
+//
+// ```
+// @include font-face('BLOKKRegular', 'BLOKKRegular/webfonts/BLOKKRegular');
+// ```
+//
+// $font-name - used in your css in font-family declarations
+// $font-filename - the location of your font file and the filename WITHOUT the file extension
+// $font-weight - optional - set the weight for this font
+// $font-style - optional - set the style for this font
+// $font-format - optional - set the file types for this font - modern, woff2, woff, legacy, legacy-no-woff2
+//
+// Style guide: mixins.font-embed
+
+@mixin font-face(
+    $font-name,
+    $font-filename,
+    $font-weight: null,
+    $font-style: null,
+    $font-format: 'modern'
+) {
+    @font-face {
+        font-display: swap;
+        font-family: $font-name;
+
+        @if $font-format == 'legacy' or $font-format == 'legacy-no-woff2' {
+            src: font-url($font-filename + '.eot'); // IE9 Compat Modes
+
+            @if $font-format == 'legacy-no-woff2' {
+                src: font-url($font-filename + '.eot?#iefix') format('embedded-opentype'),
+                font-url($font-filename + '.woff') format('woff'),
+                font-url($font-filename + '.ttf') format('truetype'); // Legacy Safari and Mobile
+            } @else {
+                src: font-url($font-filename + '.eot?#iefix') format('embedded-opentype'),
+                font-url($font-filename + '.woff2') format('woff2'),
+                font-url($font-filename + '.woff') format('woff'),
+                font-url($font-filename + '.ttf') format('truetype'); // Legacy Safari and Mobile
+            }
+        } @else if $font-format == 'woff2' {
+            src: font-url($font-filename + '.woff2') format('woff2');
+        } @else if $font-format == 'woff' {
+            src: font-url($font-filename + '.woff') format('woff');
+        } @else {
+            src: font-url($font-filename + '.woff2') format('woff2'),
+            font-url($font-filename + '.woff') format('woff');
+        }
+
+        @if $font-weight {
+            font-weight: $font-weight;
+        }
+
+        @if $font-style {
+            font-style: $font-style;
+        }
+    }
+}

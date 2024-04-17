@@ -1,0 +1,21 @@
+@use '1-settings/variables' as *;
+@use '2-tools/mixin-fonts' as *;
+
+
+// Loops that creates utility font classes based on the $font-families & $font-sizes
+
+// Family
+// Exemple: .f-serif-bold
+@each $family, $styles in $font-families {
+    .f-#{$family} {
+        @include font-family($family);
+    }
+}
+
+// Sizes
+// Exemple: .type-display-2
+@each $size, $styles in $font-sizes {
+    .type-#{$size} {
+        @include type($size);
+    }
+}

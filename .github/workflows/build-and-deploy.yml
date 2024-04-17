@@ -1,0 +1,134 @@
+---
+name: Build And Deploy
+
+#
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
+
+on:
+  workflow_call:
+    inputs:
+      github-ref:
+        required: true
+        type: string
+      env:
+        required: true
+        type: string
+      aws-region:
+        default: "us-east-1"
+        type: string
+      hosted-zone-domain:
+        default: ""
+        type: string
+      custom-domain:
+        default: ""
+        type: string
+      certificate-arn:
+        default: ""
+        type: string
+      storybook-s3-bucket:
+        default: ""
+        type: string
+      storybook-build-command:
+        default: "build-storybook"
+        type: string
+      storybook-build-folder:
+        default: "storybook-static"
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      CONTENTFUL_SPACE_ID:
+        required: true
+      CONTENTFUL_TOKEN:
+        required: true
+      CONTENTFUL_PREVIEW_TOKEN:
+        required: true
+      PREVIEW_SECRET:
+        required: false
+
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.github-ref }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore yarn cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json', '**/yarn.lock', '.yarnrc.yml') }}
+
+      - name: Install Dependencies
+        run: |
+          yarn install --immutable
+
+      - name: Setup deployment environment
+        run: |
+          echo "NEXT_ENV=\"${ENV}\"" >> .env
+          echo "NEXT_PUBLIC_ENV=\"${ENV}\"" >> .env
+          echo "CONTENTFUL_SPACE_ID=\"${CONTENTFUL_SPACE_ID}\"" >> .env
+          echo "CONTENTFUL_HOST=\"cdn.contentful.com\"" >> .env
+          echo "CONTENTFUL_HOST_PREVIEW=\"preview.contentful.com\"" >> .env
+          echo "CONTENTFUL_TOKEN=\"${CONTENTFUL_TOKEN}\"" >> .env
+          echo "CONTENTFUL_PREVIEW_TOKEN=\"${CONTENTFUL_PREVIEW_TOKEN}\"" >> .env
+          echo "PREVIEW_SECRET=\"${PREVIEW_SECRET}\"" >> .env
+          echo "HOSTED_ZONE_DOMAIN=\"${HOSTED_ZONE_DOMAIN}\"" >> .env
+          echo "QA_DOMAIN=\"${DOMAIN}\"" >> .env
+          echo "STAGING_DOMAIN=\"${DOMAIN}\"" >> .env
+          echo "PROD_DOMAIN=\"${DOMAIN}\"" >> .env
+          echo "QA_CERTIFICATE_ARN=\"${CERTIFICATE_ARN}\"" >> .env
+          echo "STAGING_CERTIFICATE_ARN=\"${CERTIFICATE_ARN}\"" >> .env
+          echo "PROD_CERTIFICATE_ARN=\"${CERTIFICATE_ARN}\"" >> .env
+          echo "NEXT_TELEMETRY_DISABLED=1" >>.env
+          echo "SST_TELEMETRY_DISABLED=1" >>.env
+        env:
+          ENV: ${{ inputs.env }}
+          HOSTED_ZONE_DOMAIN: ${{ inputs.hosted-zone-domain }}
+          DOMAIN: ${{ inputs.custom-domain }}
+          CERTIFICATE_ARN: ${{ inputs.certificate-arn }}
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_TOKEN: ${{ secrets.CONTENTFUL_TOKEN }}
+          CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
+          PREVIEW_SECRET: ${{ secrets.PREVIEW_SECRET }}
+
+      - run: npx sst deploy --stage ${ENV}
+        env:
+          ENV: ${{ inputs.env }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Build Storybook
+        if: inputs.storybook-s3-bucket
+        run: yarn ${{ inputs.storybook-build-command }}
+
+      - uses: jakejarvis/s3-sync-action@master
+        if: inputs.storybook-s3-bucket
+        name: Upload Storybook to S3
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{ inputs.storybook-s3-bucket }}
+          SOURCE_DIR: ${{ inputs.storybook-build-folder }}
+          AWS_REGION: ${{ inputs.aws-region }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

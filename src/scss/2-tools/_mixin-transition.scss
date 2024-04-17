@@ -1,0 +1,11 @@
+@mixin transition($props...) {
+    $transition: ();
+    $timer: var(--trs-time);
+    $ease: var(--trs-tfunc);
+
+    @each $prop in $props {
+        $transition: append($transition, ($prop $timer $ease), $separator: comma);
+    }
+
+    transition: $transition;
+}

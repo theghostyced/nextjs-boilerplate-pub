@@ -1,0 +1,38 @@
+@use '2-tools/units' as *;
+
+// ----------------------------
+// Table of Contents
+//
+// Generally seen on Posts
+// ----------------------------
+.toc {
+    margin: var(--space-5) 0;
+}
+
+.toc__title {
+    border-bottom: var(--bds);
+    padding-bottom: var(--space-0);
+}
+
+
+.toc__list-item {
+    margin-bottom: rem(6);
+}
+
+.toc__link {
+    color: var(--color-link);
+    cursor: pointer;
+    text-decoration: none;
+    transition: color var(--trs-time) var(--trs-tfunc);
+}
+
+.toc__link:hover,
+.toc__link:focus,
+.toc__link:active {
+    color: var(--color-link-hover);
+    cursor: pointer;
+}
+
+.toc__list-item--sub {
+    margin-left: var(--space-3);
+}

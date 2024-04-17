@@ -1,0 +1,44 @@
+@use '2-tools/media-queries' as *;
+@use '2-tools/units' as *;
+
+.headline__content,
+.headline__cta {
+  grid-column: auto / span 4;
+
+  @media #{query('l')} {
+    grid-column: auto / span 6;
+  }
+}
+
+.headline__title {
+  margin-top: var(--space-fixed-1);
+}
+
+.headline__body {
+  margin-top: var(--space-fixed-1);
+
+  @media #{query('l')} {
+    margin-top: var(--space-fixed-2);
+  }
+}
+
+.headline__cta {
+  grid-column: auto / span var(--space-columns);
+  margin-top: var(--space-fixed-2);
+}
+
+.headline--center .headline__content {
+  text-align: center;
+
+  @media #{query('m')} {
+    grid-column-start: 3;
+  }
+
+  @media #{query('l')} {
+    grid-column-start: 4;
+  }
+}
+
+.headline--center .headline__cta {
+  justify-content: center;
+}

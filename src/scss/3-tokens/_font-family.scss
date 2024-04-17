@@ -1,0 +1,13 @@
+@use '2-tools/font-face' as *;
+
+// examples of proper loading of 3rd party fonts:
+//
+// @include font-face("Sans", "SansWeb-Regular", normal, normal);
+//
+// then define the font stacks below,
+// the font combinations (family, weight, letter-spacing, etc) in `_config/_fonts.scss`
+// and setup utility classes below
+:root {
+    --ff-sans: system-ui, 'Helvetic Neue', 'Helvetica', 'Arial', sans-serif;
+    --ff-serif: 'Georgia', 'Cambria', 'Palatino', 'Times New Roman', 'Times', serif;
+}

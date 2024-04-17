@@ -1,0 +1,7 @@
+:root {
+    --trs-prop: all;
+    --trs-time: 0.3s;
+    --trs-tfunc: ease-in-out;
+
+    --trs: var(--trs-prop) var(--trs-time) var(--trs-tfunc);
+}

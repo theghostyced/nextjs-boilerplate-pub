@@ -1,0 +1,44 @@
+@use '2-tools/mixin-fonts' as *;
+@use '2-tools/units' as *;
+@use '2-tools/media-queries' as *;
+
+.in-page-nav {
+    padding: var(--space-2) 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.in-page-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.in-page-nav__item::before {
+    content: none !important; // overrides .text styles
+}
+
+.in-page-nav__link {
+    color: var(--color-text);
+    display: inline-block;
+    padding-block: var(--space-fixed-1);
+    padding-inline-end: var(--space-1);
+    padding-inline-start: 0;
+}
+
+
+.in-page-nav__list--horizontal {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-fixed-1);
+    justify-content: center;
+}
+
+
+.in-page-nav__title {
+    margin-bottom: var(--space-1);
+}

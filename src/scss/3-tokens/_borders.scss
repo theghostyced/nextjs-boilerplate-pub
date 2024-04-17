@@ -1,0 +1,11 @@
+@use '2-tools/units' as *;
+
+
+:root {
+    --bdw: 2px;
+    --bds: solid;
+    --bd: var(--bdw) var(--bds) var(--color-bd);
+
+    --bdrs: #{rem(4)};
+    --bdrs-l: #{rem(20)};
+}
